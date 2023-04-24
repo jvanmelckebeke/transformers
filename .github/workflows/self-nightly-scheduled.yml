@@ -300,11 +300,3 @@ jobs:
           pip install slack_sdk
           pip show slack_sdk
           python utils/notification_service.py "${{ needs.setup.outputs.matrix }}"
-
-
-      # delete-artifact
-      - uses: geekyeggo/delete-artifact@v2
-        with:
-          name: |
-              single-*
-              multi-*
