@@ -3,7 +3,7 @@ name: Build docker images (Past CI)
 on:
   push:
     branches:
-      - build_past_ci_docker_image*
+      - run_use_nightly_accelerate_in_past_ci
 
 concurrency:
   group: docker-images-builds
