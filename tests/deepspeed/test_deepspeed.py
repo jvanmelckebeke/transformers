@@ -176,6 +176,7 @@ class CoreIntegrationDeepSpeed(TestCasePlus, TrainerIntegrationCommon):
         unset_hf_deepspeed_config()
 
     def test_init_zero3_fp16(self):
+        raise ValueError("sorry")
         # test that zero.Init() works correctly under zero3/fp16
         ds_config = {
             "train_batch_size": 1,
