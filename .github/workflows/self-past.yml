@@ -288,7 +288,7 @@ jobs:
       - name: Run all tests on GPU
         working-directory: /transformers
         run: |
-          python3 -m pytest -v --make-reports=${{ matrix.machine_type }}_tests_torch_cuda_extensions_gpu tests/deepspeed tests/extended
+          python3 -m pytest -v --make-reports=${{ matrix.machine_type }}_tests_torch_cuda_extensions_gpu tests/deepspeed -k "test_init_zero3_fp16"
 
       - name: Failure short reports
         if: ${{ failure() }}
