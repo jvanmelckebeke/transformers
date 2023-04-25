@@ -731,6 +731,7 @@ def retrieve_available_artifacts():
 
             print("1")
             _available_artifacts[artifact_name].add_path(directory, gpu="single")
+            print(_available_artifacts[artifact_name].paths)
 
         elif artifact_name.startswith("multi-gpu"):
             artifact_name = directory[len("multi-gpu") + 1 :]
@@ -742,6 +743,9 @@ def retrieve_available_artifacts():
 
             print("2")
             _available_artifacts[artifact_name].add_path(directory, gpu="multi")
+            print(_available_artifacts[artifact_name].paths)
+
+
         else:
             if artifact_name not in _available_artifacts:
                 _available_artifacts[artifact_name] = Artifact(artifact_name)
@@ -863,6 +867,9 @@ if __name__ == "__main__":
         workflow_run_id=os.environ["GITHUB_RUN_ID"], token=os.environ["ACCESS_REPO_INFO_TOKEN"]
     )
     available_artifacts = retrieve_available_artifacts()
+
+    print(available_artifacts.keys())
+    print("======")
 
     modeling_categories = [
         "PyTorch",
