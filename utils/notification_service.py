@@ -709,12 +709,17 @@ def retrieve_available_artifacts():
     _available_artifacts: Dict[str, Artifact] = {}
 
     directories = filter(os.path.isdir, os.listdir())
+    print(directories)
+
     for directory in directories:
         artifact_name = directory
+        print(artifact_name)
 
         name_parts = artifact_name.split("_postfix_")
+        print(name_parts)
         if len(name_parts) > 1:
             artifact_name = name_parts[0]
+            print(artifact_name)
 
         if artifact_name.startswith("single-gpu"):
             artifact_name = artifact_name[len("single-gpu") + 1 :]
@@ -724,6 +729,7 @@ def retrieve_available_artifacts():
             else:
                 _available_artifacts[artifact_name] = Artifact(artifact_name, single_gpu=True)
 
+            print("1")
             _available_artifacts[artifact_name].add_path(directory, gpu="single")
 
         elif artifact_name.startswith("multi-gpu"):
@@ -734,11 +740,13 @@ def retrieve_available_artifacts():
             else:
                 _available_artifacts[artifact_name] = Artifact(artifact_name, multi_gpu=True)
 
+            print("2")
             _available_artifacts[artifact_name].add_path(directory, gpu="multi")
         else:
             if artifact_name not in _available_artifacts:
                 _available_artifacts[artifact_name] = Artifact(artifact_name)
 
+            print("3")
             _available_artifacts[artifact_name].add_path(directory)
 
     return _available_artifacts
