@@ -980,17 +980,34 @@ if __name__ == "__main__":
 
     for key in additional_results.keys():
         # If a whole suite of test fails, the artifact isn't available.
+        print(key)
+        print("======")
+        print(additional_files[key] not in available_artifacts)
+        print("======")
         if additional_files[key] not in available_artifacts:
             additional_results[key]["error"] = True
             continue
 
         for artifact_path in available_artifacts[additional_files[key]].paths:
+
+            print(artifact_path)
+            print("======")
+
             # Link to the GitHub Action job
             job_name = key
             if artifact_path["gpu"] is not None:
                 job_name = f"{key} ({artifact_path['gpu']}-gpu)"
             if job_name_prefix:
                 job_name = f"{job_name_prefix} / {job_name}"
+
+            print(job_name_prefix)
+            print(job_name)
+            print("======")
+
+            print(artifact_path["gpu"])
+            print(github_actions_job_links.get(job_name))
+            print("======")
+
             additional_results[key]["job_link"][artifact_path["gpu"]] = github_actions_job_links.get(job_name)
 
             artifact = retrieve_artifact(artifact_path["path"], artifact_path["gpu"])
@@ -998,6 +1015,11 @@ if __name__ == "__main__":
 
             failed, success, time_spent = handle_test_results(artifact["stats"])
             additional_results[key]["failed"][artifact_path["gpu"] or "unclassified"] += failed
+
+            print(artifact_path["gpu"] or "unclassified")
+            print(additional_results[key]["failed"][artifact_path["gpu"] or "unclassified"])
+            print("======")
+
             additional_results[key]["success"] += success
             additional_results[key]["time_spent"] += time_spent[1:-1] + ", "
 
@@ -1010,12 +1032,17 @@ if __name__ == "__main__":
                         line = line[len("FAILED ") :]
                         line = line.split()[0].replace("\n", "")
 
+                        print(artifact_path["gpu"] not in additional_results[key]["failures"])
+                        print("======")
+
                         if artifact_path["gpu"] not in additional_results[key]["failures"]:
                             additional_results[key]["failures"][artifact_path["gpu"]] = []
 
                         additional_results[key]["failures"][artifact_path["gpu"]].append(
                             {"line": line, "trace": stacktraces.pop(0)}
                         )
+
+                        print(additional_results[key]["failures"][artifact_path["gpu"]])
 
     selected_warnings = []
     if "warnings_in_ci" in available_artifacts:
