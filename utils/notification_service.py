@@ -990,6 +990,8 @@ if __name__ == "__main__":
             additional_results[key]["error"] = True
             continue
 
+        print(available_artifacts[additional_files[key]].paths)
+
         for artifact_path in available_artifacts[additional_files[key]].paths:
 
             print(artifact_path)
