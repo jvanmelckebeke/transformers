@@ -869,6 +869,7 @@ if __name__ == "__main__":
     available_artifacts = retrieve_available_artifacts()
 
     print(available_artifacts.keys())
+    print(available_artifacts["run_tests_torch_cuda_extensions_gpu_test_reports"].paths)
     print("======")
 
     modeling_categories = [
