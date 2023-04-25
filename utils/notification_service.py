@@ -982,6 +982,8 @@ if __name__ == "__main__":
         # If a whole suite of test fails, the artifact isn't available.
         print(key)
         print("======")
+        print(available_artifacts.keys())
+        print("======")
         print(additional_files[key] not in available_artifacts)
         print("======")
         if additional_files[key] not in available_artifacts:
